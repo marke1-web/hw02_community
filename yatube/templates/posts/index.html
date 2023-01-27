@@ -1,0 +1,28 @@
+<!-- берет инфу из глв шаблона -->
+  {% extends 'base.html' %} 
+  <!-- включен файл includes  -->
+  {% block content %}
+    <!-- класс py-5 создает отступы сверху и снизу блока -->
+    <div class="container py-5">     
+      <h1>Последние обновления на сайте</h1>
+      {% for post in posts %}
+      <article>
+        <ul>
+          <li>
+            Автор: {{ post.author.get_full_name }}
+          </li>
+          <li>
+            Дата публикации: {{ post.pub_date|date:"d E Y" }}
+          </li>
+        </ul>
+        <p>{{ post.text }}</p>    
+        {% if post.group %}   
+          <a href="{% url 'posts_name:group_list' post.group.slug %}">все записи группы</a>
+        {% endif %} 
+        {% if not forloop.last %}<hr>{% endif %}
+      </article>
+    {% endfor %}
+  {% endblock %}
+  
+  <!-- то что описано в include/footer.html -->
+  {% include 'includes/footer.html' %}

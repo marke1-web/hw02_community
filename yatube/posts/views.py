@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import Group, Post
+POST_COUNT_PER_PAGE = 10
 
 
 def index(request):
-    posts = Post.objects.order_by('-pub_date')[:10]
+    posts = Post.objects.all()[:POST_COUNT_PER_PAGE]
     context = {
         'posts': posts,
         'title': "Последние обновления на сайте"
